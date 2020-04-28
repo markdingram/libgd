@@ -901,7 +901,7 @@ BGD_DECLARE(void) gdImageColorDeallocate (gdImagePtr im, int color)
  */
 BGD_DECLARE(void) gdImageColorTransparent (gdImagePtr im, int color)
 {
-	if (color < 0) {
+	if (color < -1) {
 		return;
 	}
 
@@ -912,7 +912,9 @@ BGD_DECLARE(void) gdImageColorTransparent (gdImagePtr im, int color)
 		if (im->transparent != -1) {
 			im->alpha[im->transparent] = gdAlphaOpaque;
 		}
-		im->alpha[color] = gdAlphaTransparent;
+		if (color != -1) {
+			im->alpha[color] = gdAlphaTransparent;
+		}
 	}
 	im->transparent = color;
 }
